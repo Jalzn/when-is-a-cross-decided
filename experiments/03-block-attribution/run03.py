@@ -192,7 +192,7 @@ def stage_u2(run: Path, cfg: dict) -> None:
 
     rows = []
     tags = ["union"] + [f"alone:{b}" for b in ["strike", "fields_flight", "ball2d", "flight3d", "arrival"]]
-    # taxa bruta como referência
+    # raw rate as reference
     raw = dfq.select("crosser_player_id", "match_id", "start_frame", pl.col("success").cast(pl.Float64).alias("score_raw"))
     rows.append({"tag": "raw_rate", "estimator": "-", "stability_temporal": _temporal_split_half(raw, "score_raw"),
                  "n_players": len(qualified)})

@@ -187,7 +187,7 @@ def _fid_job(cross_id: str, npz_path: str, feat_row: dict, feats30: list[str]):
 
 
 def stage_s4(run: Path, cfg: dict) -> None:
-    """Fidelidade k=0: campos da sequência vs 30 somas das features canônicas."""
+    """k=0 fidelity: sequence fields vs the 30 canonical feature sums."""
     from joblib import Parallel, delayed
 
     t0 = time.time()
