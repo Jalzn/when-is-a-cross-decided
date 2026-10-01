@@ -1,6 +1,6 @@
 {
   "run_id": "<preenchido-em-runtime>",
-  "investigation": "01-base-temporal",
+  "investigation": "01-temporal-base",
   "site": "remote",
   "paths": {
     "remote": {
@@ -13,7 +13,7 @@
       "experiments_05": "~/xcross-lab/experiments/05-sequencias-de-campos",
       "fields_seq_root": "~/xcross-lab/data/fields_seq/cr",
       "windows_root": "~/xcross-lab/data/fields_seq/windows",
-      "run_root": "~/mit-sloan/01-base-temporal/runs/<id>"
+      "run_root": "~/mit-sloan/01-temporal-base/runs/<id>"
     }
   },
   "expected": {
@@ -46,9 +46,18 @@
     "emit_from_opening_line": true
   },
   "fields": {
-    "channels": ["occ_attack", "occ_defense", "occ_general", "pitch_control"],
+    "channels": [
+      "occ_attack",
+      "occ_defense",
+      "occ_general",
+      "pitch_control"
+    ],
     "dtype": "float32",
-    "shape_per_instant": [4, 120, 80],
+    "shape_per_instant": [
+      4,
+      120,
+      80
+    ],
     "compress": false
   },
   "validity": {
@@ -56,24 +65,63 @@
   },
   "integrity": {
     "density_sum_tol": 0.0001,
-    "pc_range": [0.0, 1.0]
+    "pc_range": [
+      0.0,
+      1.0
+    ]
   },
   "zero_vel": {
     "n": 300,
     "seed": 0
   },
   "features_30": [
-    "entropy_attack_around", "entropy_defense_around", "entropy_general_around", "entropy_diff_around", "pitch_control_around",
-    "entropy_attack_in_first_post", "entropy_defense_in_first_post", "entropy_general_in_first_post", "entropy_diff_in_first_post", "pitch_control_in_first_post",
-    "entropy_attack_in_second_post", "entropy_defense_in_second_post", "entropy_general_in_second_post", "entropy_diff_in_second_post", "pitch_control_in_second_post",
-    "entropy_attack_in_center_box", "entropy_defense_in_center_box", "entropy_general_in_center_box", "entropy_diff_in_center_box", "pitch_control_in_center_box",
-    "entropy_attack_sum", "entropy_defense_sum", "entropy_general_sum", "entropy_diff_sum", "pitch_control_sum",
-    "entropy_attack_grad_towards_goal", "entropy_defense_grad_towards_goal", "entropy_general_grad_towards_goal", "entropy_diff_grad_towards_goal", "pitch_control_grad_towards_goal"
+    "entropy_attack_around",
+    "entropy_defense_around",
+    "entropy_general_around",
+    "entropy_diff_around",
+    "pitch_control_around",
+    "entropy_attack_in_first_post",
+    "entropy_defense_in_first_post",
+    "entropy_general_in_first_post",
+    "entropy_diff_in_first_post",
+    "pitch_control_in_first_post",
+    "entropy_attack_in_second_post",
+    "entropy_defense_in_second_post",
+    "entropy_general_in_second_post",
+    "entropy_diff_in_second_post",
+    "pitch_control_in_second_post",
+    "entropy_attack_in_center_box",
+    "entropy_defense_in_center_box",
+    "entropy_general_in_center_box",
+    "entropy_diff_in_center_box",
+    "pitch_control_in_center_box",
+    "entropy_attack_sum",
+    "entropy_defense_sum",
+    "entropy_general_sum",
+    "entropy_diff_sum",
+    "pitch_control_sum",
+    "entropy_attack_grad_towards_goal",
+    "entropy_defense_grad_towards_goal",
+    "entropy_general_grad_towards_goal",
+    "entropy_diff_grad_towards_goal",
+    "pitch_control_grad_towards_goal"
   ],
   "feature_groups": {
-    "global10_suffixes": ["sum", "grad_towards_goal"],
-    "regional20_suffixes": ["around", "in_first_post", "in_second_post", "in_center_box"],
-    "box15_suffixes": ["in_first_post", "in_second_post", "in_center_box"],
+    "global10_suffixes": [
+      "sum",
+      "grad_towards_goal"
+    ],
+    "regional20_suffixes": [
+      "around",
+      "in_first_post",
+      "in_second_post",
+      "in_center_box"
+    ],
+    "box15_suffixes": [
+      "in_first_post",
+      "in_second_post",
+      "in_center_box"
+    ],
     "entropy24_prefix": "entropy_"
   },
   "stop": {

@@ -1,14 +1,14 @@
 {
   "run_id": "<runtime>",
-  "investigation": "06-curva-recebedor",
+  "investigation": "06-receiver-curve",
   "site": "remote",
   "paths": {
     "remote": {
       "fields_seq_root": "~/xcross-lab/data/fields_seq/cr",
       "windows_root": "~/xcross-lab/data/fields_seq/windows",
       "features_root": "~/xcross/data/features",
-      "front01_grid": "~/mit-sloan/01-base-temporal/runs/20260930-0115/grid.parquet",
-      "front03_run": "~/mit-sloan/03-atribuicao-blocos/runs/20260930-0410"
+      "front01_grid": "~/mit-sloan/01-temporal-base/runs/20260930-0115/grid.parquet",
+      "front03_run": "~/mit-sloan/03-block-attribution/runs/20260930-0410"
     }
   },
   "n_workers": 24

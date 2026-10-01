@@ -21,8 +21,8 @@ import numpy as np
 import polars as pl
 
 HERE = Path(__file__).resolve().parent
-E02 = Path("~/mit-sloan/02-curva-informacao").expanduser()
-E03 = Path("~/mit-sloan/03-atribuicao-blocos").expanduser()
+E02 = Path("~/mit-sloan/02-information-curve").expanduser()
+E03 = Path("~/mit-sloan/03-block-attribution").expanduser()
 E05 = Path("~/xcross-lab/experiments/05-sequencias-de-campos").expanduser()
 E01 = E05.parent / "01-campos-e-amostra"
 for p in (str(HERE), str(E02), str(E03), str(E05), str(E01)):

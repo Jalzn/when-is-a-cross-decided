@@ -1,12 +1,12 @@
 {
   "run_id": "<runtime>",
-  "investigation": "05-mecanismo",
+  "investigation": "05-mechanism",
   "site": "remote",
   "paths": {
     "remote": {
       "features_root": "~/xcross/data/features",
-      "front02_run": "~/mit-sloan/02-curva-informacao/runs/20260930-0245",
-      "front01_grid": "~/mit-sloan/01-base-temporal/runs/20260930-0115/grid.parquet"
+      "front02_run": "~/mit-sloan/02-information-curve/runs/20260930-0245",
+      "front01_grid": "~/mit-sloan/01-temporal-base/runs/20260930-0115/grid.parquet"
     }
   },
   "mean_flight_s": 1.51,

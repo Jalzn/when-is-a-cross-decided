@@ -18,8 +18,8 @@ Conclusion. A cross is decided in the air — early in the flight by where the b
 ---
 
 ## Figuras para anexar (máx. 2)
-1. `experiments/05-mecanismo/runs/1/figure_curve_v2.png` — a curva de informação densa
-2. `experiments/03-atribuicao-blocos/runs/1/figure_blocks.png` — blocos isolados + leave-one-out
+1. `experiments/05-mechanism/runs/1/figure_curve_v2.png` — a curva de informação densa
+2. `experiments/03-block-attribution/runs/1/figure_blocks.png` — blocos isolados + leave-one-out
 
 ## Repo open-source
 - Preparado em `release/` deste lab (instruções no release/README.md): push como

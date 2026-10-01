@@ -1,0 +1,15 @@
+{
+  "run_id": "<runtime>",
+  "investigation": "07-separation-curve",
+  "site": "remote",
+  "paths": {
+    "remote": {
+      "fields_seq_root": "~/xcross-lab/data/fields_seq/cr",
+      "windows_root": "~/xcross-lab/data/fields_seq/windows",
+      "front01_grid": "~/mit-sloan/01-temporal-base/runs/20260930-0115/grid.parquet",
+      "front02_run": "~/mit-sloan/02-information-curve/runs/20260930-0245",
+      "front06_run": "~/mit-sloan/06-receiver-curve/runs/20260930-0720"
+    }
+  },
+  "n_workers": 24
+}

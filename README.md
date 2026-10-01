@@ -8,18 +8,18 @@ Code, metrics, and figures for the SSAC27 research paper competition abstract
 
 - `experiments/` — the code of the 10 research fronts (Python, runs on any Linux host
   with the `xcross` package; see each `README.md` and `config.json`):
-  1. `01-base-temporal` — materializes the temporal base (sequences of spatial fields
+  1. `01-temporal-base` — materializes the temporal base (sequences of spatial fields
      per cross, CR−2 s → end of possession window) with fidelity verification
-  2. `02-curva-informacao` — the information curve (AUC × information cutoff)
-  3. `03-atribuicao-blocos` — block attribution (alone/union/leave-one-out) +
+  2. `02-information-curve` — the information curve (AUC × information cutoff)
+  3. `03-block-attribution` — block attribution (alone/union/leave-one-out) +
      per-block player-skill stability + the positional-floor control (`runs/shield`)
-  4. `05-mecanismo` — dense curve, attack/defense channels, regions, best pre-touch family
-  5. `06-curva-recebedor` — receiver/defender assignment and arrival-block stability by role
-  6. `07-curva-separacao` — contest separation trajectory (superseded by 08; kept for
+  4. `05-mechanism` — dense curve, attack/defense channels, regions, best pre-touch family
+  5. `06-receiver-curve` — receiver/defender assignment and arrival-block stability by role
+  6. `07-separation-curve` — contest separation trajectory (superseded by 08; kept for
      transparency — its identity-selection leak is documented in its `decision.md`)
-  7. `08-recebedor-dinamico` — leak-free dynamic contestants; receiver emergence
-  8. `09-intencao-execucao` — destination vs strike decomposition of the early signal
-  9. `10-z-goleiro` — ball height (z) curve and goalkeeper movement
+  7. `08-dynamic-contestants` — leak-free dynamic contestants; receiver emergence
+  8. `09-intention-execution` — destination vs strike decomposition of the early signal
+  9. `10-ball-height-goalkeeper` — ball height (z) curve and goalkeeper movement
 - `results/` — `metrics.json`, `decision.md`, and result tables of every front
   (the complete scientific record, including negative results and corrections)
 - `figures/` — publication figures

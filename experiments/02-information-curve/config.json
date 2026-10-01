@@ -1,0 +1,46 @@
+{
+  "run_id": "<runtime>",
+  "investigation": "02-information-curve",
+  "site": "remote",
+  "paths": {
+    "remote": {
+      "fields_seq_root": "~/xcross-lab/data/fields_seq/cr",
+      "features_root": "~/xcross/data/features"
+    }
+  },
+  "cuts": {
+    "pre": [
+      -10,
+      -7,
+      -4,
+      -2,
+      0
+    ],
+    "post_fracs": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "abs_post": [
+      2,
+      4,
+      6
+    ]
+  },
+  "targets": [
+    "success",
+    "shot_in_window"
+  ],
+  "estimators": [
+    "adaboost",
+    "xgboost"
+  ],
+  "calibration": "sigmoid",
+  "bootstrap_n": 500,
+  "s1_mono_tol": 0.005,
+  "s2_min_jump": 0.1,
+  "mean_flight_s": 1.51,
+  "n_workers": 24,
+  "n_fit_jobs": 8
+}

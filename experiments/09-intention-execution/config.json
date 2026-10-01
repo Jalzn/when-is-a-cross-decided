@@ -1,0 +1,13 @@
+{
+  "run_id": "<runtime>",
+  "investigation": "09-intention-execution",
+  "site": "remote",
+  "paths": {
+    "remote": {
+      "features_root": "~/xcross/data/features",
+      "front02_run": "~/mit-sloan/02-information-curve/runs/20260930-0245",
+      "front05_run": "~/mit-sloan/05-mechanism/runs/20260930-0530"
+    }
+  },
+  "bootstrap_n": 500
+}
