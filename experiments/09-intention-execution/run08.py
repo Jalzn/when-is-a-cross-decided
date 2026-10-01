@@ -63,7 +63,7 @@ def stage_t0(run: Path, cfg: dict):
         B = np.load(p["front05_run"] / f"D_ball_{cut}.npz", allow_pickle=True)["X"]
         mats[f"B_execucao_{cut}"] = B
         mats[f"C_destino+execucao_{cut}"] = np.hstack([A, B])
-        # D: resíduos de B ~ A (OLS, sem rótulo — não vaza)
+        # D: residuals of B ~ A (OLS, label-free — no outcome leak)
         Xd = np.hstack([A, np.ones((len(A), 1))])
         beta, *_ = np.linalg.lstsq(Xd, B, rcond=None)
         mats[f"D_execucao_pura_{cut}"] = B - Xd @ beta

@@ -102,7 +102,7 @@ def stage_u0(run: Path, cfg: dict) -> None:
     for name, X in blocks.items():
         np.savez_compressed(run / f"B_{name}.npz", X=X, cids=np.array(cids02, dtype=object))
     f.select("cross_id", "crosser_player_id", "match_id", "success", "shot_in_window").write_parquet(run / "meta03.parquet")
-    # chave cronológica: (match_id, start_frame) do grid da frente 01
+    # chronological key: (match_id, start_frame) from front 01's grid
     grid = pl.read_parquet(p["front01_grid"]).with_columns(pl.col("cross_id").cast(pl.Utf8))
     f2 = f.select("cross_id").join(grid.select("cross_id", "start_frame", "period"), on="cross_id", how="left")
     assert f2["start_frame"].null_count() == 0
@@ -111,7 +111,7 @@ def stage_u0(run: Path, cfg: dict) -> None:
                           n_features_by_block={k: int(v.shape[1]) for k, v in blocks.items()},
                           stage_reached="U0", stopped_by=None)
     common.record_elapsed(run, "U0", t0)
-    print(f"U0: blocos construídos para {len(cids02)} cruzamentos", flush=True)
+    print(f"U0: blocks built for {len(cids02)} crosses", flush=True)
 
 
 def _one_job(key, X, y, groups, cfg):
@@ -160,7 +160,7 @@ def stage_u1(run: Path, cfg: dict) -> None:
 
 
 def _temporal_split_half(df: pl.DataFrame, score_col: str) -> float:
-    """Spearman entre médias por jogador das metades cronológicas."""
+    """Spearman between per-player means of the two chronological halves."""
     from scipy.stats import spearmanr
     df = df.sort(["match_id", "start_frame"])
     halves = (
@@ -186,7 +186,7 @@ def stage_u2(run: Path, cfg: dict) -> None:
     )
     n_by = df.group_by("crosser_player_id").agg(pl.len().alias("n"))
     qualified = set(n_by.filter(pl.col("n") >= MIN_CROSSES)["crosser_player_id"].to_list())
-    df = df.with_row_index("i")  # i = posição em meta03 = ordem dos arrays OOF
+    df = df.with_row_index("i")  # i = position in meta03 = order of the OOF arrays
     dfq = df.filter(pl.col("crosser_player_id").is_in(list(qualified)))
     idx = dfq["i"].to_numpy()
 
@@ -239,7 +239,7 @@ def stage_u3(run: Path, cfg: dict) -> None:
             loo_deltas[f"{b}|{est}"] = {"mean": float(np.mean(diffs)), "lo": float(np.percentile(diffs, 2.5)), "hi": float(np.percentile(diffs, 97.5))}
     common.write_json(run / "loo_deltas.json", loo_deltas)
 
-    # critérios
+    # criteria
     def get_auc(tag, est="xgboost", target="success"):
         return float(auc.filter((pl.col("tag") == tag) & (pl.col("estimator") == est) & (pl.col("target") == target))["auc"][0])
     blocks = ["strike", "fields_flight", "ball2d", "flight3d", "arrival"]
@@ -252,21 +252,21 @@ def stage_u3(run: Path, cfg: dict) -> None:
     # (ponto; CI por reamostragem de jogadores ficaria no paper completo)
     s3 = bool(stab_v.get("alone:flight3d", float("nan")) > stab_v.get("alone:arrival", float("nan")))
 
-    # figura: dois painéis (AUC blocos; estabilidade blocos)
+    # figure: two panels (block AUCs; block stability)
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.6))
-    labels = ["toque\n(strike)", "área no voo\n(fields)", "bola 2D", "voo 3D\n(técnica)", "chegada"]
+    labels = ["strike\n(strike)", "box fields\nin flight", "ball 2D", "3D flight\ntechnique", "arrival"]
     alone_v = [get_auc(f"alone:{b}") for b in blocks]
     loo_v = [loo_deltas[f"{b}|xgboost"]["mean"] for b in blocks]
     x = np.arange(len(blocks))
     axes[0].bar(x - 0.2, alone_v, 0.4, label="bloco isolado", color="#4c72b0")
-    axes[0].bar(x + 0.2, [union_auc] * 5, 0.4, label="união", color="#c0c0c0")
+    axes[0].bar(x + 0.2, [union_auc] * 5, 0.4, label="union", color="#c0c0c0")
     axes[0].set_xticks(x); axes[0].set_xticklabels(labels, fontsize=8)
     axes[0].set_ylabel("AUC (OOF, success)"); axes[0].legend(); axes[0].grid(alpha=0.3, axis="y")
-    axes[0].set_title("O QUÊ carrega a informação")
+    axes[0].set_title("What carries the information")
     axes[1].bar(np.arange(len(loo_v)), loo_v, color="#55a868")
     axes[1].set_xticks(x); axes[1].set_xticklabels(labels, fontsize=8)
-    axes[1].set_ylabel("ΔAUC ao remover o bloco (união − LOO)")
-    axes[1].set_title("contribuição única (leave-one-out)")
+    axes[1].set_ylabel("dAUC when the block is removed (union - LOO)")
+    axes[1].set_title("unique contribution (leave-one-out)")
     axes[1].grid(alpha=0.3, axis="y")
     fig.tight_layout()
     fig.savefig(run / "figure_blocks.png", dpi=150)

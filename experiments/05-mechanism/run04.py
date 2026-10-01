@@ -255,13 +255,13 @@ def stage_m4(run: Path, cfg):
     rows = pre_lr.sort("tag")
     xs = [int(r["tag"].split(":")[1][1:]) * 0.2 for r in rows.iter_rows(named=True)]
     ys = [r["auc"] for r in rows.iter_rows(named=True)]
-    ax.plot(xs, ys, marker="s", ms=4, lw=1.5, ls="--", color="#2ca02c", label="fields pré-toque (LogReg)")
+    ax.plot(xs, ys, marker="s", ms=4, lw=1.5, ls="--", color="#2ca02c", label="fields pre-touch (LogReg)")
     ax.axvline(0, color="gray", ls=":", lw=1)
     ax.axvspan(0, cfg["mean_flight_s"], alpha=0.06, color="blue")
     ax.text(cfg["mean_flight_s"] * 0.5, 0.56, "voo da bola", ha="center", fontsize=9, color="#3355aa")
-    ax.set_xlabel("tempo relativo ao toque (s; voo em fração × duração média)")
+    ax.set_xlabel("time relative to the strike (s; flight as fraction x mean duration)")
     ax.set_ylabel("AUC (OOF, success)")
-    ax.set_title("Quando o cruzamento é decidido — curva de informação (10.871 cruzamentos)")
+    ax.set_title("When is a cross decided — information curve (10,871 crosses)")
     ax.grid(alpha=0.3); ax.legend(loc="upper left", fontsize=9)
     fig.tight_layout()
     fig.savefig(run / "figure_curve_v2.png", dpi=150)

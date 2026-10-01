@@ -40,7 +40,7 @@ def _p(cfg):
 
 
 def _assign_job(npz_path: str, tr_by_cross: dict, crosser_team: int, crosser_pid: int):
-    """Recebedor e defensor primários: mais próximos da bola no último instante."""
+    """Primary receiver and defender: nearest to the ball at the last instant."""
     z = np.load(npz_path, allow_pickle=False)
     frames = z["frames"]
     f_arr = int(frames[-1])

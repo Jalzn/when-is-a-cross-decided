@@ -263,7 +263,7 @@ def stage_z2(run: Path, cfg: dict, df: pl.DataFrame):
         c0 = "false" if "false" in piv.columns else "0.0"
         ax.plot(piv["frac"], piv[c1], marker="o", color="#2ca02c", label="sucesso")
         ax.plot(piv["frac"], piv[c0], marker="o", color="#d62728", label="fracasso")
-        ax.set_xlabel("fração do voo"); ax.set_ylabel(ttl); ax.grid(alpha=0.3); ax.legend()
+        ax.set_xlabel("fraction of the flight"); ax.set_ylabel(ttl); ax.grid(alpha=0.3); ax.legend()
     fig.suptitle("Eixo z e goleiro ao longo do voo")
     fig.tight_layout(); fig.savefig(run / "figure_zgk.png", dpi=150)
     common.update_metrics(run, stage_reached="Z2", stopped_by=None)

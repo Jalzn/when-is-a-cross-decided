@@ -48,7 +48,7 @@ FEATS30 = [
 ]
 PRE_CUTS = [-10, -7, -4, -2, 0]
 POST_FRACS = [0.25, 0.50, 0.75, 1.00]
-ABS_POST_CUTS = [2, 4, 6]  # arm D: instantes absolutos pós-toque (0.4/0.8/1.2 s)
+ABS_POST_CUTS = [2, 4, 6]  # arm D: absolute post-strike instants (0.4/0.8/1.2 s)
 TARGETS = ["success", "shot_in_window"]
 ESTIMATOR_KEYS = ["adaboost", "xgboost"]
 CURVES = ["fields", "ball", "union"]
@@ -111,7 +111,7 @@ def stage_t0(run: Path, cfg: dict) -> None:
 # ---------------------------------------------------------------- T1: datasets por corte
 
 def _prefix_stats(rec, ks, last_i):
-    """Snapshot no último instante + estatísticas do prefixo (instantes 0..last_i)."""
+    """Snapshot at the last instant + prefix statistics (instants 0..last_i)."""
     s = rec["sums"][: last_i + 1]
     snap = s[-1]
     mean = s.mean(axis=0)
@@ -140,7 +140,7 @@ def stage_t1(run: Path, cfg: dict) -> None:
     sums = pl.read_parquet(run / "instant_sums.parquet")
     meta = pl.read_parquet(run / "cross_meta.parquet")
 
-    # reconstrói registros por cruzamento (ordenado por k)
+    # rebuild per-cross records (sorted by k)
     recs = {}
     for (cid,), df in sums.partition_by("cross_id", as_dict=True).items():
         df = df.sort("k")
@@ -148,7 +148,7 @@ def stage_t1(run: Path, cfg: dict) -> None:
             "sums": df.select(FEATS30).to_numpy(), "k": df["k"].to_numpy(),
             "ball_x": df["ball_x"].to_numpy(), "ball_y": df["ball_y"].to_numpy(),
         }
-    starts = {}  # (não usado; referência da bola no CR vem do npz)
+    starts = {}  # (unused; the CR ball reference comes from the npz)
     for cid, rec in recs.items():
         k = rec["k"]
         i_cr = int(np.where(k == 0)[0][0])
@@ -228,7 +228,7 @@ def stage_t1(run: Path, cfg: dict) -> None:
         "union": int(matrices[("union", "k0")].shape[1]),
     }, stage_reached="T1")
     common.record_elapsed(run, "T1", t0)
-    print(f"T1: {len(matrices)} datasets de corte construídos", flush=True)
+    print(f"T1: {len(matrices)} cutoff datasets built", flush=True)
 
 
 # ---------------------------------------------------------------- T2: OOF
@@ -278,7 +278,7 @@ def stage_t2(run: Path, cfg: dict) -> None:
     common.record_elapsed(run, "T2", t0)
 
 
-# ---------------------------------------------------------------- T3: métricas + critérios + figura
+# ---------------------------------------------------------------- T3: metrics + criteria + figure
 
 def _auc_ci(y, p, rng, n_boot):
     from sklearn.metrics import roc_auc_score
@@ -318,7 +318,7 @@ def stage_t3(run: Path, cfg: dict) -> None:
         curve_rows.append({**r, "auc_lo": lo, "auc_hi": hi})
     pl.DataFrame(curve_rows).write_csv(run / "curve.csv")
 
-    # contrastes pareados (mesmos índices bootstrap)
+    # paired contrasts (same bootstrap indices)
     contrasts = []
     for target in TARGETS:
         for est in ESTIMATOR_KEYS:
@@ -342,7 +342,7 @@ def stage_t3(run: Path, cfg: dict) -> None:
                           "contrast": "abs_1.2s_with_length", "delta": float(roc_auc_score(y, pa)), "lo": lo, "hi": hi})
     pl.DataFrame(contrasts).write_csv(run / "contrasts.csv")
 
-    # critérios (curva C union, xgboost, success — primário)
+    # criteria (union curve, xgboost, success — primary)
     prim = {(r["cut"]): r for r in curve_rows if r["curve"] == "union" and r["target"] == "success" and r["estimator"] == "xgboost"}
     aucs_seq = [prim[c]["auc"] for c in cut_order if c in prim]
     mono = all(aucs_seq[i + 1] >= aucs_seq[i] - cfg["s1_mono_tol"] for i in range(len(aucs_seq) - 1))
@@ -361,7 +361,7 @@ def stage_t3(run: Path, cfg: dict) -> None:
             rows = [r for r in curve_rows if r["curve"] == curve and r["target"] == target and r["estimator"] == "xgboost" and r["cut"] in cut_order]
             rows = sorted(rows, key=lambda r: cut_order.index(r["cut"]))
             xs = [PRE_CUTS[i] * 0.2 if r["cut"].startswith("k") else None for i, r in enumerate(rows)]
-            # eixo x: tempo relativo ao toque estimado (pre: k*0.2; post: fração*comprimento médio)
+            # x-axis: time relative to strike (pre: k*0.2; post: fraction * mean length)
             xs = []
             for r in rows:
                 if r["cut"].startswith("k"):
@@ -371,12 +371,12 @@ def stage_t3(run: Path, cfg: dict) -> None:
             ax.errorbar(xs, [r["auc"] for r in rows], yerr=[[r["auc"] - r["auc_lo"] for r in rows], [r["auc_hi"] - r["auc"] for r in rows]],
                         label=curve, color=color, marker="o", capsize=3, lw=1.8)
         ax.axvline(0, color="gray", ls=":", lw=1)
-        ax.set_xlabel("tempo relativo ao toque (s; voo em fração × média)")
+        ax.set_xlabel("time relative to the strike (s; flight as fraction x mean)")
         ax.set_title(target)
         ax.grid(alpha=0.3)
     axes[0].set_ylabel("AUC (OOF)")
     axes[0].legend()
-    fig.suptitle("Curva de informação do cruzamento — quando o desfecho é decidido")
+    fig.suptitle("Information curve of the cross — when is the outcome decided")
     fig.tight_layout()
     fig.savefig(run / "figure_curve.png", dpi=150)
 

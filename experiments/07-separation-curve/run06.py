@@ -55,7 +55,7 @@ def _traj_job(npz_path: str, tr_by_cross: dict, receiver_id, defender_id):
     out = []
     if tr is None or receiver_id is None or defender_id is None:
         return []
-    # posições por jogador, com forward-fill para frames ausentes
+    # per-player positions, forward-filled for missing frames
     tr = tr.sort("frame_num")
     piv = tr.pivot(index="frame_num", on="player_id", values=["x", "y"])
     have = piv["frame_num"].to_numpy()
@@ -122,7 +122,7 @@ def stage_s0(run: Path, cfg: dict):
 
 
 def _feats_for_cut(dfp: pl.DataFrame, last_k_index: int, ks: np.ndarray):
-    """last_k_index: índice do último k incluído no prefixo (ordem crescente de k)."""
+    """last_k_index: index of the last k included in the prefix (ascending k order)."""
     pre = dfp.slice(0, last_k_index + 1)
     sep_last = pre["sep"][-1]
     sep_cr = pre.filter(pl.col("k") == 0)["sep"]
@@ -193,7 +193,7 @@ def stage_s1(run: Path, cfg: dict, df: pl.DataFrame):
         return {"tag": tag, "auc": auc}
 
     rows = [fit(f"sep:{label}", Xs[label]) for label in cut_labels]
-    # união + sep no f100: adiciona?
+    # union + sep at f100: does it add?
     Xu = np.load(p["front02_run"] / "X_union_f100.npz", allow_pickle=True)["X"][:, :-1]
     Xusep = np.hstack([Xu, Xs["f100"]])
     rows.append(fit("union_f100", Xu))
@@ -219,12 +219,12 @@ def stage_s2(run: Path, cfg: dict, df: pl.DataFrame):
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(piv["frac"], piv["1.0"] if "1.0" in piv.columns else piv["true"], marker="o", label="sucesso", color="#2ca02c")
     ax.plot(piv["frac"], piv["0.0"] if "0.0" in piv.columns else piv["false"], marker="o", label="fracasso", color="#d62728")
-    ax.set_xlabel("fração do voo da bola"); ax.set_ylabel("separação recebedor–defensor (m)")
-    ax.set_title("O duelo aéreo ao longo do voo — quando os grupos divergem?")
+    ax.set_xlabel("fraction of the ball's flight"); ax.set_ylabel("receiver-defender separation (m)")
+    ax.set_title("The aerial duel through the flight — when do the groups diverge?")
     ax.grid(alpha=0.3); ax.legend()
     fig.tight_layout(); fig.savefig(run / "figure_separation.png", dpi=150)
     piv.write_csv(run / "sep_by_frac_success.csv")
-    # divergência: primeira fração com diferença >= 0.3 m
+    # divergence: first fraction with difference >= 0.3 m
     diffs = (piv.with_columns((pl.col("1.0") - pl.col("0.0")).alias("diff")) if "1.0" in piv.columns
              else piv.with_columns((pl.col("true") - pl.col("false")).alias("diff")))
     div = diffs.filter(pl.col("diff").abs() >= 0.3)

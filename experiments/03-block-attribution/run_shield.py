@@ -101,7 +101,7 @@ def main(argv=None) -> int:
 
     stab_v = {(r["variant"], r["estimator"]): r["stability_temporal"] for r in rows}
     auc_v = {(r["variant"], r["estimator"]): r["auc"] for r in rows}
-    # critérios de blindagem
+    # shielding criteria
     shield_holds = bool(
         stab_v[("strike_no_pos", "adaboost")] >= 0.40
         and stab_v[("strike_no_pos", "adaboost")] - stab_v[("pos_only", "adaboost")] >= 0.10

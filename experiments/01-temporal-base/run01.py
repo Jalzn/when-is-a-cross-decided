@@ -44,7 +44,7 @@ import extract_seq  # noqa: E402  (frente 05)
 import fields_seq  # noqa: E402  (frente 05)
 import importlib.util  # noqa: E402
 
-# frente 05 orquestrador, por caminho explícito (evita colisão de nome `run` com a frente 01)
+# front-05 orchestrator by explicit path (avoids `run` name clash with front 01)
 _spec = importlib.util.spec_from_file_location("run05", E05 / "run.py")
 run05 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(run05)
@@ -63,7 +63,7 @@ def _stop(run: Path, stage: str, crit: str, msg: str) -> None:
 
 
 def stage_s0(run: Path, cfg: dict) -> None:
-    """Ambiente + amostra cheia a partir dos features canônicos + versões runtime."""
+    """Environment + full sample from the canonical features + runtime versions."""
     t0 = time.time()
     p = _p(cfg)
     from xcross.data.build import _build_version
@@ -148,7 +148,7 @@ def stage_s1(run: Path, cfg: dict) -> None:
                     break
                 frames.append(start + int(round(g["step_s"] * K * fps)))
             if K == K_MAX_POST and start + int(round(g["step_s"] * (K + 1) * fps)) <= end - 1:
-                pass  # já contado no clamp
+                pass  # already counted in the clamp
             et = r["end_event_type"]
             reason = "out" if et == "OUT" else "possession_event" if et is not None else ("cap" if end - start >= int(5 * fps) else "period_end")
             rows.append({"cross_id": r["cross_id"], "match_id": mid, "league": r["league"], "period": int(r["period"]),

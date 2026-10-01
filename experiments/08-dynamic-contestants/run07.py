@@ -212,7 +212,7 @@ def stage_s2(run: Path, cfg: dict, df: pl.DataFrame):
     d = d.join(n_post_by, on="cross_id")
     d = d.with_columns(((pl.int_range(1, pl.len() + 1).over("cross_id")) / pl.col("n_post")).alias("frac"))
 
-    # convergencia: fração de cruzamentos em que o dyn == recebedor da chegada
+    # convergence: fraction of crosses where dyn == arrival receiver
     conv = (d.group_by("frac").agg(pl.col("is_arrival_receiver").mean().alias("p_dyn_is_receiver")).sort("frac"))
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.6))
     agg = (d.group_by("frac", "success").agg(pl.col("sep_dyn").mean().alias("sep")).filter(pl.col("frac").is_in([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])))
@@ -221,10 +221,10 @@ def stage_s2(run: Path, cfg: dict, df: pl.DataFrame):
     c0 = "false" if "false" in piv.columns else "0.0"
     axes[0].plot(piv["frac"], piv[c1], marker="o", color="#2ca02c", label="sucesso")
     axes[0].plot(piv["frac"], piv[c0], marker="o", color="#d62728", label="fracasso")
-    axes[0].set_xlabel("fração do voo"); axes[0].set_ylabel("sep_dyn (m)")
-    axes[0].set_title("Separação dinâmica por desfecho"); axes[0].grid(alpha=0.3); axes[0].legend()
+    axes[0].set_xlabel("fraction of the flight"); axes[0].set_ylabel("sep_dyn (m)")
+    axes[0].set_title("Dynamic separation by outcome"); axes[0].grid(alpha=0.3); axes[0].legend()
     axes[1].plot(conv["frac"], conv["p_dyn_is_receiver"], marker="o", color="#1f77b4")
-    axes[1].set_xlabel("fração do voo"); axes[1].set_ylabel("P(dyn = recebedor da chegada)")
+    axes[1].set_xlabel("fraction of the flight"); axes[1].set_ylabel("P(dyn = arrival receiver)")
     axes[1].set_title("Quando o recebedor emerge"); axes[1].grid(alpha=0.3); axes[1].set_ylim(0, 1)
     fig.tight_layout(); fig.savefig(run / "figure_dyn.png", dpi=150)
     conv.write_csv(run / "convergence.csv")
@@ -242,7 +242,7 @@ def stage_s3(run: Path, cfg: dict):
     k0 = auc.get("sepdyn:k0")
     f100 = auc.get("sepdyn:f100")
     union_new = auc.get("union+sepdyn_f100")
-    s1_leak_confirm = bool(k0 is not None and k0 <= 0.68)  # pré-toque caiu => diagnóstico confirmado
+    s1_leak_confirm = bool(k0 is not None and k0 <= 0.68)  # pre-touch dropped => diagnosis confirmed
     s2 = bool(f100 is not None and f100 >= 0.75)
     s3 = bool(union_new is not None and union_new >= 0.85)
     m.update(s1_pre_touch_clean=s1_leak_confirm, s2_dyn_f100_strong=s2, s3_union_plus_dyn=s3,
