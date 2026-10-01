@@ -1,0 +1,23 @@
+{
+ "shield_holds": true,
+ "stability": {
+  "strike_full|adaboost": 0.7403177467693597,
+  "strike_full|xgboost": 0.5273049531114047,
+  "strike_no_pos|adaboost": 0.7175340788244013,
+  "strike_no_pos|xgboost": 0.5255035287293351,
+  "pos_only|adaboost": 0.47946569559472785,
+  "pos_only|xgboost": 0.2660307434500983
+ },
+ "auc": {
+  "strike_full|adaboost": 0.5566811606575894,
+  "strike_full|xgboost": 0.5543895526961352,
+  "strike_no_pos|adaboost": 0.5557000866865368,
+  "strike_no_pos|xgboost": 0.5426290149265953,
+  "pos_only|adaboost": 0.5251092037485195,
+  "pos_only|xgboost": 0.5143675127906588
+ },
+ "stability_strike_full": 0.7403177467693597,
+ "stability_strike_no_pos": 0.7175340788244013,
+ "stability_pos_only": 0.47946569559472785,
+ "margem_acima_do_piso": 0.2380683832296735
+}

@@ -1,0 +1,68 @@
+{
+  "n_crosses": 10871,
+  "n_features_by_block": {
+    "fields_flight": 90,
+    "ball2d": 8,
+    "strike": 26,
+    "flight3d": 13,
+    "arrival": 18,
+    "union": 155
+  },
+  "stage_reached": "U3",
+  "stopped_by": null,
+  "elapsed_s": {
+    "U0": 1.4,
+    "U1": 782.4,
+    "U2": 0.1,
+    "U3": 36.7
+  },
+  "n_fits": 44,
+  "n_qualified_crossers": 155,
+  "auc_by_block_alone": {
+    "strike": 0.5543895526961352,
+    "fields_flight": 0.7968960849683825,
+    "ball2d": 0.7729315633268254,
+    "flight3d": 0.7609334479264027,
+    "arrival": 0.8239998133795444
+  },
+  "auc_union": 0.8489819208837561,
+  "loo_delta_xgboost": {
+    "strike": {
+      "mean": 9.070648069375875e-05,
+      "lo": -0.0011222344088744173,
+      "hi": 0.0012987421346849768
+    },
+    "fields_flight": {
+      "mean": 0.004212470104192949,
+      "lo": 0.0013994036134984595,
+      "hi": 0.006931822171475982
+    },
+    "ball2d": {
+      "mean": 0.0002319302061318469,
+      "lo": -0.0008815129986743636,
+      "hi": 0.001425024697285934
+    },
+    "flight3d": {
+      "mean": 0.015858883045166576,
+      "lo": 0.012985272284255228,
+      "hi": 0.01875591897477924
+    },
+    "arrival": {
+      "mean": 0.013062685901855449,
+      "lo": 0.010453912303933771,
+      "hi": 0.015610991387910106
+    }
+  },
+  "stability_by_block": {
+    "union": 0.1280590377364571,
+    "alone:strike": 0.5273049531114047,
+    "alone:fields_flight": 0.19490187232122713,
+    "alone:ball2d": 0.13627662659920725,
+    "alone:flight3d": 0.1238632335406529,
+    "alone:arrival": 0.21550707357158969
+  },
+  "stability_raw_rate": -0.026312055679577142,
+  "s1_complementarity": true,
+  "s2_unique_contribution": false,
+  "s3_flight3d_more_stable_than_arrival": false
+}

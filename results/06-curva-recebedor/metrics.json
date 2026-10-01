@@ -1,0 +1,23 @@
+{
+  "n_crosses": 10871,
+  "n_with_receiver": 10871,
+  "n_with_defender": 10871,
+  "receiver_dist_median": 3.0761119940600348,
+  "stage_reached": "R2",
+  "stopped_by": null,
+  "elapsed_s": {
+    "R0": 9.8,
+    "R1": 0.1,
+    "R2": 0.0
+  },
+  "stability": {
+    "receiver|arrival|xgboost": 0.3804364949804675,
+    "receiver|raw_rate|-": 0.2548009525542634,
+    "defender|arrival|xgboost": 0.35633436445444316,
+    "defender|raw_rate|-": 0.219263076696188,
+    "crosser_ctrl|arrival|xgboost": 0.21550707357158969,
+    "crosser_ctrl|raw_rate|-": -0.026312055679577142
+  },
+  "s1_receiver_more_stable_than_crosser": true,
+  "delta_receiver_minus_crosser": 0.1649294214088778
+}

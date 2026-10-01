@@ -1,0 +1,16 @@
+{
+  "n_dense_cuts": 63,
+  "n_crosses": 10871,
+  "stage_reached": "M4",
+  "elapsed_s": {
+    "M0": 32.4,
+    "M1": 102.9,
+    "M2": 199.1,
+    "M3": 27.4,
+    "M4": 0.2
+  },
+  "n_fits_dense": 63,
+  "n_fits_mech": 27,
+  "n_fits_pre": 11,
+  "stopped_by": null
+}

@@ -1,0 +1,16 @@
+{
+  "run_id": "<runtime>",
+  "investigation": "10-z-goleiro",
+  "site": "remote",
+  "paths": {
+    "remote": {
+      "fields_seq_root": "~/xcross-lab/data/fields_seq/cr",
+      "windows_root": "~/xcross-lab/data/fields_seq/windows",
+      "front01_grid": "~/mit-sloan/01-base-temporal/runs/20260930-0115/grid.parquet",
+      "front02_run": "~/mit-sloan/02-curva-informacao/runs/20260930-0245",
+      "front05_run": "~/mit-sloan/05-mecanismo/runs/20260930-0530"
+    }
+  },
+  "bootstrap_n": 500,
+  "n_workers": 24
+}

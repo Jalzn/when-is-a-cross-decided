@@ -1,0 +1,14 @@
+tag,estimator,stability_temporal,n_players
+raw_rate,-,-0.026312055679577142,155
+union,adaboost,0.18258515677870515,155
+union,xgboost,0.1280590377364571,155
+alone:strike,adaboost,0.7403177467693597,155
+alone:strike,xgboost,0.5273049531114047,155
+alone:fields_flight,adaboost,0.3500950662240985,155
+alone:fields_flight,xgboost,0.19490187232122713,155
+alone:ball2d,adaboost,0.08115755212529406,155
+alone:ball2d,xgboost,0.13627662659920725,155
+alone:flight3d,adaboost,0.08990364474235442,155
+alone:flight3d,xgboost,0.1238632335406529,155
+alone:arrival,adaboost,0.26362669588476045,155
+alone:arrival,xgboost,0.21550707357158969,155

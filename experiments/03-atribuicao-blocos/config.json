@@ -1,0 +1,17 @@
+{
+  "run_id": "<runtime>",
+  "investigation": "03-atribuicao-blocos",
+  "site": "remote",
+  "paths": {
+    "remote": {
+      "features_root": "~/xcross/data/features",
+      "front02_run": "~/mit-sloan/02-curva-informacao/runs/20260930-0245",
+      "front01_grid": "~/mit-sloan/01-base-temporal/runs/20260930-0115/grid.parquet"
+    }
+  },
+  "targets": ["success", "shot_in_window"],
+  "estimators": ["adaboost", "xgboost"],
+  "min_crosses": 20,
+  "bootstrap_n": 500,
+  "n_fit_jobs": 8
+}

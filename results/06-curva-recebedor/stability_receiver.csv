@@ -1,0 +1,7 @@
+role,score,estimator,stability_temporal,n_players
+receiver,arrival,xgboost,0.3804364949804675,138
+receiver,raw_rate,-,0.2548009525542634,138
+defender,arrival,xgboost,0.35633436445444316,127
+defender,raw_rate,-,0.219263076696188,127
+crosser_ctrl,arrival,xgboost,0.21550707357158969,155
+crosser_ctrl,raw_rate,-,-0.026312055679577142,155

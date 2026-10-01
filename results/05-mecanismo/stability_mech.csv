@@ -1,0 +1,3 @@
+tag,estimator,stability_temporal
+alone:fields_attack,adaboost,0.34238342302858427
+alone:fields_defense,adaboost,0.3414682092101447

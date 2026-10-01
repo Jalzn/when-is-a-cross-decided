@@ -1,0 +1,12 @@
+tag,estimator,auc
+pre_lr:k-10,logreg,0.5590764631329288
+pre_lr:k-9,logreg,0.5574409751616035
+pre_lr:k-8,logreg,0.5601233475170319
+pre_lr:k-7,logreg,0.5641190353680625
+pre_lr:k-6,logreg,0.5675950267873786
+pre_lr:k-5,logreg,0.5710357116340127
+pre_lr:k-4,logreg,0.5761426664428606
+pre_lr:k-3,logreg,0.5835226673017894
+pre_lr:k-2,logreg,0.5907418229866408
+pre_lr:k-1,logreg,0.5984184064734452
+pre_lr:k0,logreg,0.6086908760473015
