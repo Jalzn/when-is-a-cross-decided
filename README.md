@@ -49,9 +49,7 @@ Tracking Data.* MIT Sloan Sports Analytics Conference Research Papers Competitio
 (submitted). Method foundation: *When the Outcome Is Noise: A Calibrated Expected-Cross
 Model from Tracking Data* (MLSA @ ECML PKDD 2026).
 
-## Note on languages
+## Figures
 
-Code, READMEs, and data documentation are in English. The per-front
-`results/*/decision.md` files are the original lab decision records and are kept in
-the working language of the research (Portuguese) for fidelity; every key number in
-them also appears in `metrics.json` and in the English experiment READMEs.
+All figures are regenerated in English by `figures/make_figures.py` from the released
+result tables and anonymized data.
